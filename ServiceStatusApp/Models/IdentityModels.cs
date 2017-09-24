@@ -23,8 +23,9 @@ namespace ServiceStatusApp.Models
         public ApplicationDbContext()
             : base("DefaultConnection", throwIfV1Schema: false)
         {
-        }
 
+        }
+        public DbSet<Service> Service { get; set; }
         public static ApplicationDbContext Create()
         {
             return new ApplicationDbContext();

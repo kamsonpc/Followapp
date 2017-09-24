@@ -22,9 +22,20 @@
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Strona główna", "Index", "Home")</li>
-                    <li>@Html.ActionLink("Informacje", "About", "Home")</li>
-                    <li>@Html.ActionLink("Kontakt", "Contact", "Home")</li>
+                
+                    @if (User.Identity.IsAuthenticated)
+                    {
+                        <li>@Html.ActionLink("Strona główna", "Index", "Home")</li>
+                        <li>@Html.ActionLink("Zadania", "Index", "Services")</li>
+                    }
+                    else
+                    {
+                        <li>@Html.ActionLink("Strona główna", "Index", "Home")</li>
+                        <li>@Html.ActionLink("Informacje", "About", "Home")</li>
+                        <li>@Html.ActionLink("Sprawdź Usługę", "Check", "Home")</li>
+                        <li>@Html.ActionLink("Kontakt", "Contact", "Home")</li>
+                    }
+                    
                 </ul>
                 @Html.Partial("_LoginPartial")
             </div>
@@ -34,7 +45,7 @@
         @RenderBody()
         <hr />
         <footer>
-            <p>&copy; @DateTime.Now.Year — moja aplikacja platformy ASP.NET</p>
+            <p>&copy; Copyright @DateTime.Now.Year</p>
         </footer>
     </div>
 
