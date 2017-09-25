@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using System.Data.Entity;
 using ServiceStatusApp.Models;
 using ServiceStatusApp.ViewModels;
 
@@ -35,7 +36,7 @@ namespace ServiceStatusApp.Controllers
         public ActionResult Check(ServiceCheckViewModel check)
         {
             
-            var service = _contex.Service.SingleOrDefault(s => s.Key == check.Key);
+            var service = _contex.Service.Include(m => m.Status).SingleOrDefault(s => s.Key == check.Key);
             if(service != null)
             {
                 return View("CheckResult",service);

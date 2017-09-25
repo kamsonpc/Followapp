@@ -31,10 +31,10 @@ namespace ServiceStatusApp.Models
         [MinLength(8)]
         public string Key { get; set; }
 
-        [Required]
-        [DataType(DataType.Text)]
+
+        public Status Status { get; set; }
         [Display(Name = "Status")]
-        public bool Status { get; set; }
+        public int StatusId { get; set; }
 
         [Required]
         [Display(Name = "Data Dodania")]

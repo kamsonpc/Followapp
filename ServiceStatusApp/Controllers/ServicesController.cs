@@ -4,6 +4,8 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using ServiceStatusApp.Models;
+using System.Data.Entity;
+
 namespace ServiceStatusApp.Controllers
 {
     public class ServicesController : Controller
@@ -14,9 +16,10 @@ namespace ServiceStatusApp.Controllers
             _contex = new ApplicationDbContext();
         }
         // GET: Employee
+        [AllowAnonymous]
         public ActionResult Index()
         {
-            var Services = _contex.Service.ToList();
+            var Services = _contex.Service.Include(m => m.Status).ToList();
             return View(Services);
         }
         public ActionResult Create()
@@ -26,6 +29,7 @@ namespace ServiceStatusApp.Controllers
         // GET: Employee
         [HttpPost]
         [ValidateAntiForgeryToken]
+
         public ActionResult Save(Service service)
         {
             
@@ -33,7 +37,7 @@ namespace ServiceStatusApp.Controllers
 
             service.Key = key.GenerateKey();
             service.AddDate = DateTime.Now;
-            service.Status = false;
+            service.StatusId = 1;
             if(!ModelState.IsValid)
             {
               
@@ -59,5 +63,21 @@ namespace ServiceStatusApp.Controllers
                 return RedirectToAction("Index");
             }
         }
+
+        public ActionResult Complete(int Id)
+        {
+            var Service = _contex.Service.SingleOrDefault(t => t.Id == Id);
+            if (Service == null)
+            {
+                return RedirectToAction("Index");
+            }
+            else
+            {
+                 Service.StatusId = 2;
+                _contex.SaveChanges();
+                return RedirectToAction("Index");
+            }
+        }
+
     }
 }
