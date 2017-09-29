@@ -9,7 +9,6 @@ namespace ServiceStatusApp.ViewModels
     public class ServiceStatusViewModel
     {
         public Service Service { get; set; }
-        public IEnumerable<Service> ServiceList { get; set; }
         public IEnumerable<Status> Status { get; set; }
     }
 }

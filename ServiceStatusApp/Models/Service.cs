@@ -11,6 +11,9 @@ namespace ServiceStatusApp.Models
         [Key]
         public int Id { get; set; }
 
+        public ApplicationUser ApplicatioUser { get; set; }
+       
+        public string ApplicationUserId { get; set; }
 
         [Display(Name = "Nazwa Zadania")]
         [Required]

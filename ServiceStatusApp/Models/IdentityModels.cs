@@ -26,7 +26,9 @@ namespace ServiceStatusApp.Models
 
         }
         public DbSet<Service> Service { get; set; }
+        public DbSet<ServiceHistory> ServiceHistory { get; set; }
         public DbSet<Status> Status { get; set; }
+        
         public static ApplicationDbContext Create()
         {
             return new ApplicationDbContext();

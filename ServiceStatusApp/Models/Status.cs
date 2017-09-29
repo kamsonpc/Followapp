@@ -12,5 +12,8 @@ namespace ServiceStatusApp.Models
         [Display(Name = "Nazwa")]
         [Required]
         public string Name { get; set; }
+
+        public static readonly int unready = 1;
+        public static readonly int ready = 2;
     }
 }

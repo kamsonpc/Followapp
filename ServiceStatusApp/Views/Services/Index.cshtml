@@ -4,7 +4,7 @@
     ViewBag.Title = "Index";
 }
 
-<h2>Index</h2>
+<h2>Lista Usług do wykonania</h2>
 @if(Model.Any())
 {
 
@@ -21,6 +21,7 @@
         <th>
             @Html.DisplayNameFor(model => model.Key)
         </th>
+        <th></th>
         <th>
             @Html.DisplayNameFor(model => model.StatusId)
         </th>
@@ -39,7 +40,10 @@
             @Html.DisplayFor(modelItem => item.Describe)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.Key)
+            @Html.DisplayFor(modelItem => item.Key) 
+        </td>
+        <td>
+            <a data-toggle="tooltip" data-placement="bottom" title="Wygeneruj nowy klucz" href="@Url.Action("ChangeKey", "Services", new { id = item.Id })" class="btn btn-warning"><i class="glyphicon glyphicon-sort"></i></a>
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.Status.Name)
@@ -50,6 +54,7 @@
         <td>
             <a href="@Url.Action("Complete", "Services", new { id = item.Id })" class="btn btn-success">Ukończ</a>
             <a href="@Url.Action("Delete", "Services", new { id = item.Id })" class="btn btn-danger">Usuń</a>
+            <a href="@Url.Action("Edit", "Services", new { id = item.Id })" class="btn btn-warning">Edytuj</a>
         </td>
     </tr>
 }
@@ -61,5 +66,8 @@ else
     <p>Nie znaleziono zadań</p>
 }
 <p>
-    @Html.ActionLink("Create New", "Create")
+    <a href="@Url.Action("Create", "Services")" class="btn btn-default">Stwórz</a>
 </p>
+@section Scripts {
+    @Scripts.Render("~/bundles/bootstrapToolTip")
+}

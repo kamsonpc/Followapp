@@ -1,0 +1,77 @@
+﻿@model IEnumerable<ServiceStatusApp.Models.ServiceHistory>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Historia</h2>
+@if (Model.Any())
+{
+    <table class="table table-bordered table-hover" id="servicesHistory">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.Name)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Describe)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Key)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.StatusId)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.AddDate)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.CompleteDate)
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Name)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Describe)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Key)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Status.Name)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.AddDate)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.CompleteDate)
+                    </td>
+                    <td>
+                        <a data-toggle="tooltip" data-placement="bottom" title="Przywróć na listę usług" href="@Url.Action("Restore", "History", new { id = item.Id })" class="btn btn-success"><i class="glyphicon glyphicon-retweet"></i></a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+else
+{
+    <p>Historia jest pusta</p>
+}
+@section Scripts {
+    @Scripts.Render("~/bundles/bootstrapToolTip")
+    <script>
+        $(document).ready(function()
+        {
+            $("#servicesHistory").DataTable();
+        
+        });
+    </script>
+}
