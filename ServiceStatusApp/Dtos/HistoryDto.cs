@@ -10,7 +10,9 @@ namespace ServiceStatusApp.Dtos
     {
         [Key]
         public int Id { get; set; }
-      
+
+        public string ApplicationUserId { get; set; }
+
         [Required]
         [MaxLength(150)]
         [MinLength(2)]

@@ -1,0 +1,47 @@
+﻿@model IEnumerable<ServiceStatusApp.Models.Messange>
+
+@{
+    ViewBag.Title = "Chat";
+}
+
+<h2>Chat</h2>
+<div id="chat-container">
+
+</div>
+@section Scripts {
+<script>
+    $(document).ready(function()
+    {
+        $.ajax({
+            url: '../api/message/2053',
+            cache:'false',// returns "[1,2,3,4,5,6]"
+            dataType: 'json', // jQuery will parse the response as JSON
+            success: function (outputfromserver) {
+                // outputfromserver is an array in this case
+                // just access it like one
+
+
+                // let's iterate through the returned values
+                // for loops are good for that, $.each() is fine too
+                // but unnecessary here
+                var chatHTML = "";
+                for (var i = 0; i < outputfromserver.length; i++)
+                {
+                    
+                    if (outputfromserver[i].client == true)
+                    {
+                        chatHTML += "Klient :" + outputfromserver[i].text + "<br>";
+                    }
+                    else
+                    {
+                        chatHTML += "Pracownik :"+outputfromserver[i].text+"<br>";
+                    }
+                    
+                }
+                $("#chat-container").append(chatHTML);
+            }
+        });
+      
+    });
+</script>  
+}

@@ -3,17 +3,17 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.ComponentModel.DataAnnotations;
+using ServiceStatusApp.Models;
 
-namespace ServiceStatusApp.Models
+namespace ServiceStatusApp.Dtos
 {
-    public class ServiceHistory
+    public class ServiceDto
     {
         [Key]
         public int Id { get; set; }
+      
 
-        public ApplicationUser ApplicationUser { get; set; }
-
-        [Display(Name = "Nazwa Użytkownika")]
+        [Display(Name = "Nazwa użytkownika")]
         public string ApplicationUserId { get; set; }
 
         [Display(Name = "Nazwa Zadania")]
@@ -36,17 +36,14 @@ namespace ServiceStatusApp.Models
         public string Key { get; set; }
 
 
-        public Status Status { get; set; }
+      
         [Display(Name = "Status")]
         public int StatusId { get; set; }
+
+        public  StatusDto Status { get; set; }
 
         [Required]
         [Display(Name = "Data Dodania")]
         public DateTime AddDate { get; set; }
-
-        [Display(Name = "Data Ukończenia")]
-        public DateTime? CompleteDate { get; set; }
-
-
     }
 }

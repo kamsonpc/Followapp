@@ -14,17 +14,15 @@ namespace ServiceStatusApp.Controllers
     public class ServicesController : Controller
     {
         private ApplicationDbContext _contex;
-        private string userId;
         public ServicesController()
         {
-             userId = User.Identity.GetUserId();
-            _contex = new ApplicationDbContext();
+             _contex = new ApplicationDbContext();
         }
         // GET: Employee
-        [AllowAnonymous]
+
         public ActionResult Index()
         {
-           
+            var userId = User.Identity.GetUserId();
             var Services = _contex.Service.Include(m => m.Status).Where(m => m.ApplicationUserId == userId).ToList();
             return View(Services);
         }
@@ -41,7 +39,7 @@ namespace ServiceStatusApp.Controllers
                 Status = _contex.Status.ToList()
 
             };
-            return View("ServiceFormEdit",viewmodel);
+            return View("ServiceFormEdit", viewmodel);
         }
         // GET: Employee
         [HttpPost]
@@ -49,7 +47,8 @@ namespace ServiceStatusApp.Controllers
 
         public ActionResult Save(Service service)
         {
-            if(service.Id!=0)
+            var userId = User.Identity.GetUserId();
+            if (service.Id!=0)
             {
                 if (!ModelState.IsValid)
                 {
@@ -84,6 +83,7 @@ namespace ServiceStatusApp.Controllers
                 service.AddDate = DateTime.Now;
                 service.ApplicationUserId = User.Identity.GetUserId();
                 service.StatusId = Status.unready;
+                service.Priority = false;
                 if (!ModelState.IsValid)
                 {
 
@@ -95,61 +95,62 @@ namespace ServiceStatusApp.Controllers
             }
         }
 
-        [HttpGet]
-        public ActionResult Delete(int Id)
-        {
+        //[HttpGet]
+        //public ActionResult Delete(int Id)
+        //{
+        //    var userId = User.Identity.GetUserId();
+        //    var Service = _contex.Service.Where(m => m.ApplicationUserId == userId).SingleOrDefault(t => t.Id == Id);
+        //    if(Service == null)
+        //    {
+        //        return HttpNotFound();
+        //    }
+        //    else
+        //    {
+        //        _contex.Service.Remove(Service);
+        //        _contex.SaveChanges();
+        //        return RedirectToAction("Index");
+        //    }
+        //}
 
-            var Service = _contex.Service.Where(m => m.ApplicationUserId == userId).SingleOrDefault(t => t.Id == Id);
-            if(Service == null)
-            {
-                return HttpNotFound();
-            }
-            else
-            {
-                _contex.Service.Remove(Service);
-                _contex.SaveChanges();
-                return RedirectToAction("Index");
-            }
-        }
 
+        //public ActionResult ChangeKey(int Id)
+        //{
+        //    var userId = User.Identity.GetUserId();
+        //    var Service = _contex.Service.Where(m => m.ApplicationUserId == userId).SingleOrDefault(t => t.Id == Id);
+        //    if (Service == null)
+        //    {
+        //        return HttpNotFound();
+        //    }
+        //    else
+        //    {
+        //        Key key = new Key();
+        //        Service.Key = key.GenerateKey();
+        //        _contex.SaveChanges();
+        //        return RedirectToAction("Index");
+        //    }
+        //}
 
-        public ActionResult ChangeKey(int Id)
-        {
+        //public ActionResult Complete(int Id)
+        //{
+        //    var userId = User.Identity.GetUserId();
+        //    var service = _contex.Service.Where(m => m.ApplicationUserId == userId).SingleOrDefault(t => t.Id == Id);
+        //    if (service == null)
+        //    {
+        //        return HttpNotFound();
+        //    }
+        //    else
+        //    {
+        //         service.ApplicationUserId = User.Identity.GetUserId(); 
+        //         service.StatusId = Status.ready;
+        //         var serviceHistory = Mapper.Map<Service, ServiceHistory>(service);
+        //         serviceHistory.CompleteDate = DateTime.Now;
 
-            var Service = _contex.Service.Where(m => m.ApplicationUserId == userId).SingleOrDefault(t => t.Id == Id);
-            if (Service == null)
-            {
-                return HttpNotFound();
-            }
-            else
-            {
-                Key key = new Key();
-                Service.Key = key.GenerateKey();
-                _contex.SaveChanges();
-                return RedirectToAction("Index");
-            }
-        }
-
-        public ActionResult Complete(int Id)
-        {
-
-            var service = _contex.Service.Where(m => m.ApplicationUserId == userId).SingleOrDefault(t => t.Id == Id);
-            if (service == null)
-            {
-                return HttpNotFound();
-            }
-            else
-            {
-                 service.StatusId = Status.ready;
-                 var serviceHistory = Mapper.Map<Service, ServiceHistory>(service);
-                 serviceHistory.CompleteDate = DateTime.Now;
-
-                _contex.Service.Remove(service);
-                _contex.ServiceHistory.Add(serviceHistory);
-                _contex.SaveChanges();
-                return RedirectToAction("Index");
-            }
-        }
+        //        _contex.Service.Remove(service);
+        //        _contex.ServiceHistory.Add(serviceHistory);
+        //        _contex.SaveChanges();
+        //        return RedirectToAction("Index");
+        //    }
+        //}
 
 
 

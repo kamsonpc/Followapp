@@ -11,6 +11,8 @@ namespace ServiceStatusApp
     {
         public static void Register(HttpConfiguration config)
         {
+
+            config.Filters.Add(new AuthorizeAttribute());
             var setting = config.Formatters.JsonFormatter.SerializerSettings;
             setting.ContractResolver = new CamelCasePropertyNamesContractResolver();
             setting.Formatting = Formatting.Indented;

@@ -7,6 +7,7 @@ using System.Net.Http;
 using System.Web.Http;
 using ServiceStatusApp.Models;
 using ServiceStatusApp.Dtos;
+using Microsoft.AspNet.Identity;
 using AutoMapper;
 
 namespace ServiceStatusApp.Controllers.Api
@@ -24,7 +25,22 @@ namespace ServiceStatusApp.Controllers.Api
         {
             return _contex.ServiceHistory.ToList().Select(Mapper.Map<ServiceHistory, HistoryDto>);
         }
+        [HttpGet]
+        public void Restore(int Id)
+        {
+            var serviceHistory = _contex.ServiceHistory.SingleOrDefault(s => s.Id == Id);
+            if (serviceHistory == null)
+            {
+                throw new HttpResponseException(HttpStatusCode.NotFound);
+            }
+            serviceHistory.ApplicationUserId = User.Identity.GetUserId();
+            serviceHistory.StatusId = Status.unready;
+            var service = Mapper.Map<ServiceHistory, Service>(serviceHistory);
+            _contex.ServiceHistory.Remove(serviceHistory);
+            _contex.Service.Add(service);
+            _contex.SaveChanges();
 
-
+        }
+        
     }
 }

@@ -5,7 +5,9 @@ using System.Web;
 using System.Web.Mvc;
 using System.Data.Entity;
 using ServiceStatusApp.Models;
+using Microsoft.AspNet.Identity;
 using AutoMapper;
+
 
 namespace ServiceStatusApp.Controllers
 {
@@ -19,10 +21,11 @@ namespace ServiceStatusApp.Controllers
         // GET: History
         public ActionResult Index()
         {
-            var history = _contex.ServiceHistory.Include(h => h.Status).ToList();
+            var history = _contex.ServiceHistory.Include(c => c.ApplicationUser).Include(c => c.Status).ToList();
             return View(history);
 
         }
+
         public ActionResult Restore(int Id)
         {
             var serviceHistory = _contex.ServiceHistory.SingleOrDefault(s => s.Id == Id);
@@ -30,6 +33,7 @@ namespace ServiceStatusApp.Controllers
             {
                 return HttpNotFound();
             }
+            serviceHistory.ApplicationUserId = User.Identity.GetUserId();
             serviceHistory.StatusId = Status.unready;
             var service = Mapper.Map<ServiceHistory, Service>(serviceHistory);
             _contex.ServiceHistory.Remove(serviceHistory);

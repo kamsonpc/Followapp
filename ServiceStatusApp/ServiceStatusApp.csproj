@@ -115,6 +115,9 @@
       <Private>True</Private>
       <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.WebPages.Razor.dll</HintPath>
     </Reference>
+    <Reference Include="ThenInclude.EF6, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\ThenInclude.EF6.1.0.0.5\lib\net452\ThenInclude.EF6.dll</HintPath>
+    </Reference>
     <Reference Include="WebGrease">
       <Private>True</Private>
       <HintPath>..\packages\WebGrease.1.5.2\lib\WebGrease.dll</HintPath>
@@ -205,11 +208,17 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\Api\HistoryController.cs" />
+    <Compile Include="Controllers\Api\MessageController.cs" />
+    <Compile Include="Controllers\Api\ServiceController.cs" />
     <Compile Include="Controllers\HistoryController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\MessangesController.cs" />
     <Compile Include="Controllers\ServicesController.cs" />
     <Compile Include="Dtos\HistoryDto.cs" />
+    <Compile Include="Dtos\MessangeDto.cs" />
+    <Compile Include="Dtos\ServiceDto.cs" />
+    <Compile Include="Dtos\StatusDto.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -253,11 +262,28 @@
     <Compile Include="Migrations\201709291603292_przypisanie uzytkownika do zadaniav3.Designer.cs">
       <DependentUpon>201709291603292_przypisanie uzytkownika do zadaniav3.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201709300717226_Dodanie właściwości userid do modelu history.cs" />
+    <Compile Include="Migrations\201709300717226_Dodanie właściwości userid do modelu history.Designer.cs">
+      <DependentUpon>201709300717226_Dodanie właściwości userid do modelu history.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201710031835201_Dodanie modelu Messange.cs" />
+    <Compile Include="Migrations\201710031835201_Dodanie modelu Messange.Designer.cs">
+      <DependentUpon>201710031835201_Dodanie modelu Messange.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201710031915103_Dodanie modelu Messangev2.cs" />
+    <Compile Include="Migrations\201710031915103_Dodanie modelu Messangev2.Designer.cs">
+      <DependentUpon>201710031915103_Dodanie modelu Messangev2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201710121130573_Dodanie priority do service.cs" />
+    <Compile Include="Migrations\201710121130573_Dodanie priority do service.Designer.cs">
+      <DependentUpon>201710121130573_Dodanie priority do service.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\Key.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="Models\Messange.cs" />
     <Compile Include="Models\Service.cs" />
     <Compile Include="Models\ServiceHistory.cs" />
     <Compile Include="Models\Status.cs" />
@@ -432,6 +458,7 @@
     <Content Include="Scripts\DataTables\dataTables.semanticui.min.js" />
     <Content Include="Scripts\DataTables\dataTables.uikit.js" />
     <Content Include="Scripts\DataTables\dataTables.uikit.min.js" />
+    <Content Include="Scripts\DataTables\myDataTables.js" />
     <Content Include="Scripts\DataTables\jquery.dataTables.js" />
     <Content Include="Scripts\DataTables\jquery.dataTables.min.js" />
     <Content Include="Scripts\DataTables\responsive.bootstrap.js" />
@@ -503,6 +530,7 @@
     <Content Include="Views\Home\CheckResult.cshtml" />
     <Content Include="Views\Services\ServiceFormEdit.cshtml" />
     <Content Include="Views\History\Index.cshtml" />
+    <Content Include="Views\Messanges\Chat.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -550,6 +578,18 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201709291603292_przypisanie uzytkownika do zadaniav3.resx">
       <DependentUpon>201709291603292_przypisanie uzytkownika do zadaniav3.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201709300717226_Dodanie właściwości userid do modelu history.resx">
+      <DependentUpon>201709300717226_Dodanie właściwości userid do modelu history.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201710031835201_Dodanie modelu Messange.resx">
+      <DependentUpon>201710031835201_Dodanie modelu Messange.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201710031915103_Dodanie modelu Messangev2.resx">
+      <DependentUpon>201710031915103_Dodanie modelu Messangev2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201710121130573_Dodanie priority do service.resx">
+      <DependentUpon>201710121130573_Dodanie priority do service.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

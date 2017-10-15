@@ -11,8 +11,9 @@ namespace ServiceStatusApp.Models
         [Key]
         public int Id { get; set; }
 
-        public ApplicationUser ApplicatioUser { get; set; }
-       
+        public ApplicationUser ApplicationUser { get; set; }
+
+        [Display(Name = "Nazwa użytkownika")]
         public string ApplicationUserId { get; set; }
 
         [Display(Name = "Nazwa Zadania")]
@@ -28,7 +29,9 @@ namespace ServiceStatusApp.Models
         [MinLength(2)]
         public string Describe { get; set; }
 
-
+        [Required]
+        [Display(Name = "Priorytet")]
+        public bool Priority { get; set; }
 
         [Display(Name = "Klucz")]
         [MinLength(8)]

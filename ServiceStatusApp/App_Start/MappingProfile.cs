@@ -15,10 +15,17 @@ namespace ServiceStatusApp.App_Start
             Mapper.CreateMap<Service, ServiceHistory>().ForMember(c => c.Id,opt => opt.Ignore());
             Mapper.CreateMap<ServiceHistory, Service>().ForMember(c => c.Id, opt => opt.Ignore());
 
+            Mapper.CreateMap<Status, StatusDto>().ForMember(c => c.Id, opt => opt.Ignore());
             Mapper.CreateMap<Service, Service>().ForMember(c =>  c.Id  , opt => opt.Ignore());
 
-            Mapper.CreateMap<ServiceHistory,HistoryDto>().ForMember(c => c.Id, opt => opt.Ignore());
+            Mapper.CreateMap<ServiceHistory, HistoryDto>();
             Mapper.CreateMap<HistoryDto,ServiceHistory>().ForMember(c => c.Id, opt => opt.Ignore());
+
+            Mapper.CreateMap<Messange, MessangeDto>();
+            Mapper.CreateMap<MessangeDto, Messange>().ForMember(c => c.Id, opt => opt.Ignore());
+
+            Mapper.CreateMap<Service, ServiceDto>();
+            Mapper.CreateMap<ServiceDto, Service>().ForMember(c => c.Id, opt => opt.Ignore());
         }
     }
 }

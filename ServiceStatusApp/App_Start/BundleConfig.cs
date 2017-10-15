@@ -13,6 +13,7 @@ namespace ServiceStatusApp
                         "~/Scripts/bootstrap.js",
                         "~/Scripts/respond.js",
                         "~/Scripts/DataTables/jquery.dataTables.js",
+                        "~/Scripts/DataTables/myDataTables.js",
                         "~/Scripts/DataTables/dataTables.boostrap.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/jqueryval").Include(

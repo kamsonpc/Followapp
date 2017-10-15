@@ -5,69 +5,144 @@
 }
 
 <h2>Lista Usług do wykonania</h2>
-@if(Model.Any())
-{
 
 
 
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.Name)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Describe)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Key)
-        </th>
-        <th></th>
-        <th>
-            @Html.DisplayNameFor(model => model.StatusId)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.AddDate)
-        </th>
-        <th></th>
-    </tr>
+<table class="table table-bordered table-hover" id="services">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Describe)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Key)
+            </th>
+           
+            
+            <th></th>
+            <th>
+                @Html.DisplayNameFor(model => model.StatusId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.AddDate)
+            </th>
+            <th>
+                Operacje
+            </th>
+        </tr>
+    </thead>
+    <tbody>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Name)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Describe)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Key) 
-        </td>
-        <td>
-            <a data-toggle="tooltip" data-placement="bottom" title="Wygeneruj nowy klucz" href="@Url.Action("ChangeKey", "Services", new { id = item.Id })" class="btn btn-warning"><i class="glyphicon glyphicon-sort"></i></a>
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Status.Name)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.AddDate)
-        </td>
-        <td>
-            <a href="@Url.Action("Complete", "Services", new { id = item.Id })" class="btn btn-success">Ukończ</a>
-            <a href="@Url.Action("Delete", "Services", new { id = item.Id })" class="btn btn-danger">Usuń</a>
-            <a href="@Url.Action("Edit", "Services", new { id = item.Id })" class="btn btn-warning">Edytuj</a>
-        </td>
-    </tr>
-}
-
+    </tbody>
 </table>
-}
-else
-{
-    <p>Nie znaleziono zadań</p>
-}
+
 <p>
     <a href="@Url.Action("Create", "Services")" class="btn btn-default">Stwórz</a>
 </p>
 @section Scripts {
-    @Scripts.Render("~/bundles/bootstrapToolTip")
+@Scripts.Render("~/bundles/bootstrapToolTip")
+<script>
+    $(document).ready(function () {
+        var table = $("#services").DataTable({
+            "ajax": {
+                url: "api/service",
+                dataSrc : ""
+            },
+            columns:
+            [
+                {
+                    data: "name"
+                },
+                {
+                    data : "describe"
+                },
+                {
+                    data : "key"
+                },
+                {
+                    render: function (data, type, service)
+                    {
+                        return "<button data-toggle='tooltip' data-placement='bottom' data-service-id='" + service.id + "' title='Wygeneruj nowy klucz' href='api/service' class='btn btn-warning js-change-key'><i class='glyphicon glyphicon-sort'></i></button>";
+                    }
+                },
+                {
+                    data : "status.name"
+
+                },
+                {
+                    data: "addDate",
+                    render: function (data, type, service)
+                    {
+                        return data + "";
+                    }
+                },
+                {
+                    render: function (data, type, service) {
+                        return "<button data-toggle='tooltip' data-placement='bottom' title='Ustaw status zadania na ukończone' data-service-id='" + service.id + "' class='btn btn-success js-move-to-serviceHistory'>Ukończ</button> <button data-toggle='tooltip' data-placement='bottom' title='Wygeneruj nowy klucz' href='@Url.Action("Edit", "Services")' class='btn btn-warning'>Edytuj</button>  <button data-toggle='tooltip' data-placement='bottom' title='Wygeneruj nowy klucz'  data-service-id='" + service.id + "' class='js-remove btn btn-danger'>Usuń</button>";
+                    }
+                }
+
+            ],
+            "aoColumnDefs": [
+                { "bSortable": false, "aTargets": [1,2,3,6] }
+            ],
+            "order": [[5, "asc"]],
+            "language": {
+                "lengthMenu": "Wyświetlaj _MENU_ wyników na stronę",
+                "zeroRecords": "Nic nie znaleziono ",
+                "info": "Pokaż _PAGE_ z _PAGES_",
+                "infoEmpty": "No records available",
+                "infoFiltered": "(filtered from _MAX_ total records)",
+                "search": "Wyszukiwanie",
+                "paginate": {
+                    "first": "Pierwsza",
+                    "last": "Ostatnia",
+                    "next": "Następna",
+                    "previous": "Poprzednia"
+                },
+            }
+        });
+        $(".js-move-to-serviceHistory").click(function () {
+
+        });
+
+        $("#services").on("click", ".js-move-to-serviceHistory", function () {
+            var button = $(this);
+            $.ajax({
+                url: "/api/service/" + button.attr("data-service-id") + "/completed",
+                method: "delete",
+                success: function () {
+                    button.parents("tr").fadeOut(200, function () { $(this).remove(); })
+                }
+            });
+        });
+
+        $("#services").on("click", ".js-change-key", function () {
+            var button = $(this);
+            $.ajax({
+                url: "/api/service/" + button.attr("data-service-id") + "/changekey",
+                method: "put",
+                success: function () {
+                    table.ajax.reload();
+                }
+            });
+        });
+
+        $("#services").on("click", ".js-remove", function () {
+            var button = $(this);
+            $.ajax({
+                url: "/api/service/" + button.attr("data-service-id") + "/remove",
+                method: "delete",
+                success: function () {
+                    button.parents("tr").fadeOut(200, function () { $(this).remove(); })
+                }
+            });
+        });
+
+    });
+</script>
+
 }
