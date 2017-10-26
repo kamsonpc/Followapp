@@ -4,13 +4,45 @@
     using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
     {
     @Html.AntiForgeryToken()
+        <div class="col text-right">
+            <div class="row usr-wrap">
+                <div class="col-md-10 usr-desc">
+                    <h5>@User.Identity.GetUserName()</h5>
+                    <p id="role">pracownik</p><i class="fa fa-angle-down options"></i>
+                </div>
+                <div class="col-md-2 usr-img"><img class="img-fluid" src="@Url.Content("~/Content/Images/prof.jpg")" alt="profile"></div>
 
-    <ul class="nav navbar-nav navbar-right">
+                <!-- acc-box -->
+                <div class="acc-arrow"><i class="fa fa-caret-up"></i></div>
+
+                <div class="acc-box">
+                    <ul class="nav flex-column text-left">
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Mój profil</a>
+
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Kalendarz</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Odśwież panel</a>
+                        </li>
+                        <hr />
+                        <li class="nav-item">
+                            <a class="nav-link disabled" href="javascript:document.getElementById('logoutForm').submit()"><i class="fa fa-power-off"></i>Wyloguj się</a>
+                        </li>
+                    </ul>
+                </div>
+                <!-- //acc-box -->
+
+            </div>
+        </div>
+    @*<ul class="nav navbar-nav navbar-right">
         <li>
             @Html.ActionLink("Witaj, " + User.Identity.GetUserName() + "!", "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Manage" })
         </li>
         <li><a href="javascript:document.getElementById('logoutForm').submit()">Wyloguj</a></li>
-    </ul>
+    </ul>*@
     }
 }
 else

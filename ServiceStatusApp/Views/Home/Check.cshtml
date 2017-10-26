@@ -1,37 +1,67 @@
 ﻿@model ServiceStatusApp.ViewModels.ServiceCheckViewModel
-
 @{
     ViewBag.Title = "Check";
+    Layout = null;
 }
+<!DOCTYPE html>
+<html lang="pl">
 
-<h2>Check</h2>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="" />
+    <meta name="author" content="AX Team" />
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css" />
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.css" />
+    <link rel="stylesheet" type="text/css" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" />
+    <title>@ViewBag.Title — FollowaApp</title>
+    @Styles.Render("~/Content/user")
+    @Scripts.Render("~/bundles/modernizr")
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/wow/1.1.2/wow.min.js"></script>
+    <script>
+        new WOW().init();
+    </script>
+</head>
+<body class="wow animated fadeIn">
+    <div class="container ">
+        <div class="login-header">
+        <h2>sprawdź <span>status</span> swojego zlecenia</h2></div>
+        @using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
 
-@using (Html.BeginForm()) 
-{
-    @Html.AntiForgeryToken()
+            <div class="form-horizontal">
+                <h4>wprowadź klucz</h4>
+                
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                <div class="form-group">
+
+                    <div class="col">
+                        @Html.EditorFor(model => model.Key, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.Key, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="row form-group">
+                    <div class="col">
+                        <div class="back">
+                            @Html.ActionLink("Powrót", "Index")
+                        </div>
+                    </div>
+                    <div class="col btn-wrap">
+                        <input type="submit" value="sprawdź" class="btn btn-default" />
+                    </div>
+                </div>
+            </div>
+            <div>
+                <span class="text-danger">@ViewBag.Message</span>
+            </div>
+        }
+        
+    </div>
     
-    <div class="form-horizontal">
-        <h4>Sprawdź status swojej usługi</h4>
-        <hr />
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        <div class="form-group">
-            @Html.LabelFor(model => model.Key, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Key, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Key, "", new { @class = "text-danger" })
-            </div>
-        </div>
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Create" class="btn btn-default" />
-            </div>
-        </div>
-    </div>
-    <div>
-        <span class="text-danger">@ViewBag.Message</span>
-    </div>
-}
-
-<div>
-    @Html.ActionLink("Back to List", "Index")
-</div>
+    @section Scripts {
+        @Scripts.Render("~/bundles/jqueryval")
+    }
+</body>
+</html>

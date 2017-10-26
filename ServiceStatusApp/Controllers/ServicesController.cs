@@ -70,8 +70,19 @@ namespace ServiceStatusApp.Controllers
                     service.AddDate = serviceInDb.AddDate;
                     service.Key = serviceInDb.Key;
                     service.ApplicationUserId = serviceInDb.ApplicationUserId;
+                    if (serviceInDb.StatusId != service.StatusId)
+                    {
+                        StatusHistory statushistory = new StatusHistory();
+                        statushistory.ServiceId = service.Id;
+                        statushistory.StatusId = service.StatusId;
+                        statushistory.ChangeDate = DateTime.Now;
+                        _contex.StatusHistory.Add(statushistory);
+                        _contex.SaveChanges();
+                    }
                     Mapper.Map(service, serviceInDb);
                     _contex.SaveChanges();
+
+                    
                 }
                 return RedirectToAction("Index");
 
@@ -90,6 +101,13 @@ namespace ServiceStatusApp.Controllers
                     return View("ServiceForm", service);
                 }
                 _contex.Service.Add(service);
+                _contex.SaveChanges();
+
+                StatusHistory statushistory = new StatusHistory();
+                statushistory.ServiceId = service.Id;
+                statushistory.StatusId = service.StatusId;
+                statushistory.ChangeDate = DateTime.Now;
+                _contex.StatusHistory.Add(statushistory);
                 _contex.SaveChanges();
                 return RedirectToAction("Index");
             }

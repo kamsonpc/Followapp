@@ -39,7 +39,13 @@ namespace ServiceStatusApp.Controllers
             var service = _contex.Service.Include(m => m.Status).SingleOrDefault(s => s.Key == check.Key);
             if(service != null)
             {
-                return View("CheckResult",service);
+                var statuslist = _contex.StatusHistory.Include(m => m.Status).Where(ss => ss.ServiceId == service.Id).OrderBy(ss => ss.ChangeDate).ToList();
+                var statushistoryobj = new StatusHistoryServiceViewModel
+                {
+                    Service = service,
+                    StatusHistoryList = statuslist
+                };
+                return View("CheckResult",statushistoryobj);
             }
             ModelState.Clear();
             ViewBag.Message = "Nie znaleziono usługi o podanym kluczu";

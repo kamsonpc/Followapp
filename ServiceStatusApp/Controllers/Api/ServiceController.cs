@@ -9,7 +9,7 @@ using ServiceStatusApp.Models;
 using ServiceStatusApp.Dtos;
 using System.Data.Entity;
 using AutoMapper;
-
+using System.Net.Mail;
 
 namespace ServiceStatusApp.Controllers.Api
 {
@@ -41,14 +41,47 @@ namespace ServiceStatusApp.Controllers.Api
             }
             else
             {
-                service.ApplicationUserId = User.Identity.GetUserId();
-                service.StatusId = Status.ready;
-                var serviceHistory = Mapper.Map<Service, ServiceHistory>(service);
-                serviceHistory.CompleteDate = DateTime.Now;
+                ////service.ApplicationUserId = User.Identity.GetUserId();
 
-                _contex.Service.Remove(service);
-                _contex.ServiceHistory.Add(serviceHistory);
-                _contex.SaveChanges();
+                //MailMessage msg;
+                //string emailId = string.Empty;
+                //msg = new MailMessage();
+                //SmtpClient smtp = new SmtpClient();
+
+                ////sender email address
+                //msg.From = new MailAddress("kamsonpc123@onet.pl");
+
+                ////Receiver email address
+                //msg.To.Add("kamson785@gmail.com");
+                ////email message subject
+                //msg.Subject = "some string";
+                ////email message body
+                //msg.Body = "Some string".Trim();
+                //msg.IsBodyHtml = true;
+                //smtp.Credentials = new NetworkCredential("kamsonpc123@onet.pl", "zaq1@WSX");
+                //smtp.Port = 465;
+                //smtp.Host = "smtp.poczta.onet.pl";
+                //smtp.EnableSsl = true;
+                //smtp.Send(msg);
+
+
+                if (service.StatusId != Status.ready)
+                {
+                    service.StatusId = Status.ready;
+                    StatusHistory statushistory = new StatusHistory();
+                    statushistory.ServiceId = service.Id;
+                    statushistory.StatusId = service.StatusId;
+                    statushistory.ChangeDate = DateTime.Now;
+                    _contex.StatusHistory.Add(statushistory);
+                    _contex.SaveChanges();
+                }
+                
+                //var serviceHistory = Mapper.Map<Service, ServiceHistory>(service);
+                //serviceHistory.CompleteDate = DateTime.Now;
+
+                //_contex.Service.Remove(service);
+                //_contex.ServiceHistory.Add(serviceHistory);
+               
      
             }
         }
@@ -83,6 +116,8 @@ namespace ServiceStatusApp.Controllers.Api
             }
             else
             {
+                var statusHistory = _contex.StatusHistory.Where(x => x.ServiceId == Id);
+                _contex.StatusHistory.RemoveRange(statusHistory);
                 _contex.Service.Remove(Service);
                 _contex.SaveChanges();
                 return Ok();

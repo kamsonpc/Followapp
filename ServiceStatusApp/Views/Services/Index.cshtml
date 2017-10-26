@@ -4,11 +4,11 @@
     ViewBag.Title = "Index";
 }
 
-<h2>Lista Usług do wykonania</h2>
+<h2>moje zlecenia</h2>
 
 
 
-<table class="table table-bordered table-hover" id="services">
+<table class="table stripe" id="services">
     <thead>
         <tr>
             <th>
@@ -39,9 +39,11 @@
     </tbody>
 </table>
 
-<p>
-    <a href="@Url.Action("Create", "Services")" class="btn btn-default">Stwórz</a>
-</p>
+<div class="create-wrap"><p>
+    <a href="@Url.Action("Create", "Services")" class="btn btn-default create">dodaj zlecenie</a>
+</p></div>
+<div class="clearfix"></div>
+
 @section Scripts {
 @Scripts.Render("~/bundles/bootstrapToolTip")
 <script>
@@ -51,6 +53,7 @@
                 url: "api/service",
                 dataSrc : ""
             },
+    
             columns:
             [
                 {
@@ -65,7 +68,7 @@
                 {
                     render: function (data, type, service)
                     {
-                        return "<button data-toggle='tooltip' data-placement='bottom' data-service-id='" + service.id + "' title='Wygeneruj nowy klucz' href='api/service' class='btn btn-warning js-change-key'><i class='glyphicon glyphicon-sort'></i></button>";
+                        return "<button data-toggle='tooltip' data-placement='bottom' data-service-id='" + service.id + "' title='Wygeneruj nowy klucz' href='api/service' class='btn btn-warning js-change-key'><i class='fa fa-refresh'></i></button>";
                     }
                 },
                 {
@@ -81,7 +84,7 @@
                 },
                 {
                     render: function (data, type, service) {
-                        return "<button data-toggle='tooltip' data-placement='bottom' title='Ustaw status zadania na ukończone' data-service-id='" + service.id + "' class='btn btn-success js-move-to-serviceHistory'>Ukończ</button> <button data-toggle='tooltip' data-placement='bottom' title='Wygeneruj nowy klucz' href='@Url.Action("Edit", "Services")' class='btn btn-warning'>Edytuj</button>  <button data-toggle='tooltip' data-placement='bottom' title='Wygeneruj nowy klucz'  data-service-id='" + service.id + "' class='js-remove btn btn-danger'>Usuń</button>";
+                        return "<button data-toggle='tooltip' data-placement='bottom' title='Ustaw status zadania na ukończone' data-service-id='" + service.id + "' class='btn btn-success js-move-to-serviceHistory'>Ukończ</button> <a data-toggle='tooltip' data-placement='bottom' title='Wygeneruj nowy klucz' href='@Url.Action("Edit", "Services")/" + service.id +"' class='btn btn-warning'>Edytuj</a>  <button data-toggle='tooltip' data-placement='bottom' title='Wygeneruj nowy klucz'  data-service-id='" + service.id + "' class='js-remove btn btn-danger'>Usuń</button>";
                     }
                 }
 
@@ -91,12 +94,12 @@
             ],
             "order": [[5, "asc"]],
             "language": {
-                "lengthMenu": "Wyświetlaj _MENU_ wyników na stronę",
+                "lengthMenu": "Ilość wyników na stronę: _MENU_",
                 "zeroRecords": "Nic nie znaleziono ",
                 "info": "Pokaż _PAGE_ z _PAGES_",
                 "infoEmpty": "No records available",
                 "infoFiltered": "(filtered from _MAX_ total records)",
-                "search": "Wyszukiwanie",
+                "search": "Wyszukaj",
                 "paginate": {
                     "first": "Pierwsza",
                     "last": "Ostatnia",
@@ -115,7 +118,7 @@
                 url: "/api/service/" + button.attr("data-service-id") + "/completed",
                 method: "delete",
                 success: function () {
-                    button.parents("tr").fadeOut(200, function () { $(this).remove(); })
+                    table.ajax.reload();
                 }
             });
         });

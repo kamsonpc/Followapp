@@ -29,6 +29,7 @@ namespace ServiceStatusApp.Models
         public DbSet<ServiceHistory> ServiceHistory { get; set; }
         public DbSet<Status> Status { get; set; }
         public DbSet<Messange> Messange { get; set; }
+        public DbSet<StatusHistory> StatusHistory { get; set; }
         public static ApplicationDbContext Create()
         {
             return new ApplicationDbContext();

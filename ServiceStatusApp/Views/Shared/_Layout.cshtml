@@ -1,10 +1,161 @@
 ﻿<!DOCTYPE html>
-<html>
+<html lang="pl">
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="" />
+    <meta name="author" content="AX Team" />
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css" />
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/hamburgers/0.9.1/hamburgers.min.css" />
+    <link rel="stylesheet" type="text/css" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" />
+    <title>@ViewBag.Title — FollowApp</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+   
+</head>
+
+<body>
+    <div class="container-fluid page-wrap">
+
+        <!-- search-modal -->
+        <div id="modal-container">
+            <div class="modal-background">
+                <div class="modal">
+                    <i id="modal-close" class="fa fa-close"></i>
+                    <h2>szukaj w aplikacji <span>follow.</span></h2>
+                    <input name="search" type="search" placeholder="kliknij aby wyszukać" class="form-control">
+                </div>
+            </div>
+        </div>
+        <!-- //search-modal -->
+        <!-- top-bar -->
+        <header class="row bar-top">
+            <div class="row container-fluid">
+
+                <!-- top-left -->
+                <div class="col text-left">
+                    @*<div class="notif wow animated bounceIn">3</div>*@
+                    <ul class="nav top-icons">
+                        @*<li><i class="fa fa-globe i-globe"></i></li>
+                        <li>
+                            <div class="vl"></div>
+                        </li>*@
+                        <li><i class="fa fa-search i-search"><span id="search">szukaj<h6>w aplikacji</h6></span></i></li>
+                    </ul>
+                </div>
+
+                <!-- notif-box -->
+                @*<div class="notif-arrow"><i class="fa fa-caret-up"></i></div>
+                <div class="notif-box">
+                    <ul class="nav flex-column text-left">
+                        <li class="nav-item text-center">
+                            <h6>powiadomienia</h6>
+                        </li>
+                        <li class="nav-item wow animated flipInX">
+                            <a class="nav-link" href="#"></a>
+                        </li>
+                        <li class="nav-item wow animated flipInX">
+                            <a class="nav-link" href="#"></a>
+                        </li>
+                        <li class="nav-item wow animated flipInX">
+                            <a class="nav-link" href="#"></a>
+                        </li>
+                    </ul>
+                </div>*@
+                <!-- //notif-box -->
+                <!-- //top-left -->
+                <!-- usr -->
+                @Html.Partial("_LoginPartial")
+                
+                <!-- //usr -->
+
+            </div>
+
+            <!-- main-navigation -->
+            <div class="row nav-wrap">
+                <nav class="nav">
+                    @if (User.Identity.IsAuthenticated)
+                    {
+                        <a class="nav-link" href="@Url.Action("Index", "Services")">Zlecenia</a>
+                        @*<a class="nav-link" href="@Url.Action("Index", "History")">Historia</a>*@
+                    }
+                    else
+                    {
+                        <a class="nav-link" href="@Url.Action("Check", "Home")">Sprawdź Usługę</a>
+                    }
+                    
+
+                </nav>
+            </div>
+            <!-- //main-navigation -->
+
+        </header>
+        <!-- //top_bar -->
+        <!-- content -->
+        <div class="container-fluid">
+            <div class="content-wrap">
+
+                <!-- path -->
+                <div class="row subnav">
+                    <div class="col path text-left">
+                       @if (ViewContext.RouteData.Values["controller"].ToString() != "Home")
+                       {<h6>Home</h6> <i class="fa fa-angle-right"></i> <span>@ViewContext.RouteData.Values["controller"].ToString()</span>}
+                       else
+                       {
+                        <h6>Home</h6>
+                       }
+                    </div>
+                    <div class="col appinfo text-right">
+                        <h6>program follow.</h6>&nbsp;<i class="fa fa-angle-right"></i>&nbsp;<span>myCompany.inc</span>
+                    </div>
+                </div>
+                <!-- //path -->
+                <!-- tiles -->
+                <div class="content">
+                   @RenderBody()
+                </div>
+                <!-- //tiles -->
+
+            </div>
+        </div>
+        <!-- //content -->
+
+    </div>
+
+    <!-- footer -->
+    <div class="footer">
+       
+            <hr />
+        
+        
+            <div class="col text-left">follow.&nbsp;<i class="fa fa-copyright"></i>&nbsp;AX Team 2017</div>
+        
+    </div>
+
+    <!-- //footer -->
+    @Scripts.Render("~/bundles/lib")
+    @RenderSection("scripts", required: false)
+</body>
+
+</html>
+
+
+
+
+
+@*<!DOCTYPE html>*@
+@*<html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@ViewBag.Title — moja aplikacja platformy ASP.NET</title>
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css" />
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/hamburgers/0.9.1/hamburgers.min.css" />
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/metro/3.0.17/css/metro.min.css" />
+    <link rel="stylesheet" type="text/css" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" />
+    <title>@ViewBag.Title — FollowaApp</title>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
 
@@ -46,11 +197,16 @@
         @RenderBody()
         <hr />
         <footer>
-            <p>&copy; Copyright @DateTime.Now.Year</p>
+            <div class="container-fluid">
+                <hr />
+            </div>
+            <div class="row footer-content">
+                <div class="col text-left">follow.&nbsp;<i class="fa fa-copyright"></i>&nbsp;AX Team  @DateTime.Now.Year</p></div>
+            </div>
         </footer>
     </div>
 
     @Scripts.Render("~/bundles/lib")
     @RenderSection("scripts", required: false)
 </body>
-</html>
+</html>*@

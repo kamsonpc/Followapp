@@ -278,6 +278,10 @@
     <Compile Include="Migrations\201710121130573_Dodanie priority do service.Designer.cs">
       <DependentUpon>201710121130573_Dodanie priority do service.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201710212320253_Dodanie modelu StatusHistory.cs" />
+    <Compile Include="Migrations\201710212320253_Dodanie modelu StatusHistory.Designer.cs">
+      <DependentUpon>201710212320253_Dodanie modelu StatusHistory.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\IdentityModels.cs" />
@@ -287,10 +291,12 @@
     <Compile Include="Models\Service.cs" />
     <Compile Include="Models\ServiceHistory.cs" />
     <Compile Include="Models\Status.cs" />
+    <Compile Include="Models\StatusHistory.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
     <Compile Include="ViewModels\ServiceCheckViewModel.cs" />
     <Compile Include="ViewModels\ServiceStatusViewModel.cs" />
+    <Compile Include="ViewModels\StatusHistoryServiceViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap.css" />
@@ -402,6 +408,12 @@
     <Content Include="Content\DataTables\images\sort_desc.png" />
     <Content Include="Content\DataTables\images\sort_desc_disabled.png" />
     <Content Include="Content\DataTables\swf\flashExport.swf" />
+    <Content Include="Content\Images\fl.png" />
+    <Content Include="Content\Images\logo.png" />
+    <Content Include="Content\Images\prof.jpg" />
+    <Content Include="Content\index.css" />
+    <Content Include="Content\login.css" />
+    <Content Include="Content\user.css" />
     <Content Include="Scripts\DataTables\autoFill.bootstrap.js" />
     <Content Include="Scripts\DataTables\autoFill.bootstrap.min.js" />
     <Content Include="Scripts\DataTables\autoFill.foundation.js" />
@@ -467,6 +479,7 @@
     <Content Include="Scripts\DataTables\responsive.foundation.min.js" />
     <Content Include="Scripts\DataTables\responsive.jqueryui.js" />
     <Content Include="Scripts\DataTables\responsive.jqueryui.min.js" />
+    <Content Include="Scripts\main.js" />
     <Content Include="Scripts\tooltip.js" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
@@ -527,10 +540,10 @@
     <Content Include="Views\Services\Index.cshtml" />
     <Content Include="Views\Services\ServiceForm.cshtml" />
     <Content Include="Views\Home\Check.cshtml" />
-    <Content Include="Views\Home\CheckResult.cshtml" />
     <Content Include="Views\Services\ServiceFormEdit.cshtml" />
     <Content Include="Views\History\Index.cshtml" />
     <Content Include="Views\Messanges\Chat.cshtml" />
+    <Content Include="Views\Home\CheckResult.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -590,6 +603,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201710121130573_Dodanie priority do service.resx">
       <DependentUpon>201710121130573_Dodanie priority do service.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201710212320253_Dodanie modelu StatusHistory.resx">
+      <DependentUpon>201710212320253_Dodanie modelu StatusHistory.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

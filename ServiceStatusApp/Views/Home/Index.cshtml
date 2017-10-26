@@ -1,31 +1,63 @@
 ﻿@{
     ViewBag.Title = "Home Page";
+    Layout = null;
 }
+<!DOCTYPE html>
+<html lang="pl">
 
-<div class="jumbotron">
-    <h1>ASP.NET</h1>
-    <p class="lead">ASP.NET is a free web framework for building great Web sites and Web applications using HTML, CSS and JavaScript.</p>
-    <p><a href="https://asp.net" class="btn btn-primary btn-lg">Learn more &raquo;</a></p>
-</div>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="" />
+    <meta name="author" content="AX Team" />
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css" />
+    <link rel="stylesheet" type="text/css" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" />
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.css" />
+    <title>@ViewBag.Title — FollowApp</title>
+    @Styles.Render("~/Content/index")
+    @Scripts.Render("~/bundles/modernizr")
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/wow/1.1.2/wow.min.js"></script>
+    <script>
+        new WOW().init();
+    </script>
+    <style>
+       
+        .zone-desc {
+            color: #e5e5e5;
+            text-transform: uppercase;
+            font-size: 22px;
+            margin-bottom: 14vh !important;
+        }
+        .menu__item {
+            
+            width: 30%;
+            margin: 2em auto;
+            padding: 2em 4em;
+        }
+    </style>
+</head>
+<body class="wow animated fadeIn" data-wow-duration="1.2s" data-wow-delay=".3s">
+    <div class="container ">
+        <div class="login-header">
+            <h2>aplikacja&nbsp;</h2>
+            <h3>fol<span>low.</span></h3>
+            <p class="text-center zone-desc">Wybierz strefę</p>
+        </div>
+        <div class="choose">
+            <ul class="menu">
+                <li class="menu__item">
+                    <a href="@Url.Action("Check", "Home")" class="menu__link" data-hover-label="strefa klienta">strefa klienta</a>
+                </li>
+                <li class="menu__item">
+                    <a href="@Url.Action("Login", "Account")" class="menu__link" data-hover-label="strefa pracownika">strefa pracownika</a>
+                </li>
+            </ul>
 
-<div class="row">
-    <div class="col-md-4">
-        <h2>Getting started</h2>
-        <p>
-            ASP.NET MVC gives you a powerful, patterns-based way to build dynamic websites that
-            enables a clean separation of concerns and gives you full control over markup
-            for enjoyable, agile development.
-        </p>
-        <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301865">Learn more &raquo;</a></p>
-    </div>
-    <div class="col-md-4">
-        <h2>Get more libraries</h2>
-        <p>NuGet is a free Visual Studio extension that makes it easy to add, remove, and update libraries and tools in Visual Studio projects.</p>
-        <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301866">Learn more &raquo;</a></p>
-    </div>
-    <div class="col-md-4">
-        <h2>Web Hosting</h2>
-        <p>You can easily find a web hosting company that offers the right mix of features and price for your applications.</p>
-        <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301867">Learn more &raquo;</a></p>
-    </div>
-</div>
+            </div>
+        </div>
+            @section Scripts {
+                @Scripts.Render("~/bundles/jqueryval")
+            }
+        </body>
+</html>

@@ -1,0 +1,131 @@
+﻿@import url("https://fonts.googleapis.com/css?family=Montserrat:300,400,500,800");
+@import url("https://fonts.googleapis.com/css?family=Montserrat:300,400,500,800");
+
+body {
+    font-family: 'Montserrat', 'sans-serif';
+    color: #fff;
+    background: #1d2135 !important;
+    height: 100vh;
+    width: 100%;
+    font-size: 14px;
+    overflow: hidden;
+    width: 100%;
+}
+.check-header h2 span {
+    color: #e54b4b !important;
+}
+
+
+
+.login-header {
+    text-align: center;
+    margin-top: 16vh;
+}
+.desc-wrap {
+    width: 70%;
+    margin: 0 auto;
+}
+.desc-wrap h2 {
+    margin-top: 8vh;
+    font-weight: 300;
+    text-transform: uppercase;
+}
+.desc-wrap p {
+    color: #e54b4b;
+}
+.desc-wrap th {
+    text-transform: uppercase;
+    font-weight: 500;
+    font-size: 18px;
+}
+    .login-header h2,
+    .login-header h3 {
+        display: inline-block;
+        font-size: 60px !important;
+        font-weight: 300;
+    }
+
+    .login-header h2 {
+        text-transform: uppercase;
+    }
+
+    .login-header h3 span {
+        color: #e54b4b;
+    }
+
+    .choose {
+        margin-top: 8vh;
+    }
+
+    .choose .col {
+        text-align: center;
+        padding-bottom: 6vh;
+    }
+h3 {
+    font-weight: 300;
+    font-size: 40px;
+    text-transform: uppercase;
+    text-align: left;
+}
+
+.btn-wrap {
+    position: relative;
+}
+
+.btn a {
+    font-size: 14px;
+}
+
+.btn a:hover {
+    text-decoration: none;
+}
+
+.btn-wrap .btn {
+    text-transform: uppercase;
+    border: none;
+    position: absolute;
+    right: 0;
+    background: #6f7386;
+    cursor: pointer;
+    color: #fff;
+    -webkit-transition: background 0.2s ease;
+    -moz-transition: background 0.2s ease;
+    -ms-transition: background 0.2s ease;
+    -o-transition: background 0.2s ease;
+    transition: background 0.2s ease;
+}
+.btn-wrap .btn:hover {
+    background: #e54b4b;
+}
+
+
+
+.menu {
+    text-align: center;
+}
+
+a {
+    color: #fff;
+    text-transform: uppercase;
+    font-size: 30px;
+}
+
+a:hover {
+    color: #fff;
+}
+
+.menu__item {
+    margin-top: 2em;
+}
+.menu__link {
+    color: #6f7386;
+    -webkit-transition: color 0.2s ease;
+    -moz-transition: color 0.2s ease;
+    -ms-transition: color 0.2s ease;
+    -o-transition: color 0.2s ease;
+    transition: color 0.2s ease;
+}
+.menu__link:hover{
+    text-decoration: none;
+    color: #fff;
+}

@@ -10,6 +10,7 @@ namespace ServiceStatusApp
         {
             bundles.Add(new ScriptBundle("~/bundles/lib").Include(
                         "~/Scripts/jquery-{version}.js",
+                        "~/Scripts/main.js",
                         "~/Scripts/bootstrap.js",
                         "~/Scripts/respond.js",
                         "~/Scripts/DataTables/jquery.dataTables.js",
@@ -31,6 +32,19 @@ namespace ServiceStatusApp
                       "~/Content/DataTables/css/dataTables.bootstrap.css",
                       "~/Content/bootstrap.css",
                       "~/Content/site.css"));
+
+            bundles.Add(new StyleBundle("~/Content/login").Include(
+                   "~/Content/bootstrap.css",
+                   "~/Content/login.css"));
+
+            bundles.Add(new StyleBundle("~/Content/index").Include(
+                   "~/Content/bootstrap.css",
+                   "~/Content/index.css"));
+
+            bundles.Add(new StyleBundle("~/Content/user").Include(
+                  "~/Content/bootstrap.css",
+                  "~/Content/user.css"));
+
         }
     }
 }

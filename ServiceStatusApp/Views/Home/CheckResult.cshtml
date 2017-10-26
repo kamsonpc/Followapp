@@ -1,49 +1,67 @@
-﻿@model ServiceStatusApp.Models.Service
+﻿@model  ServiceStatusApp.ViewModels.StatusHistoryServiceViewModel
 
 @{
-    ViewBag.Title = "Twoja usługa";
+    ViewBag.Title = "CheckResult";
+    Layout = null;
 }
+<!DOCTYPE html>
+<html lang="pl">
 
-<h2>Twoja usługa</h2>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="" />
+    <meta name="author" content="AX Team" />
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css" />
+    <link rel="stylesheet" type="text/css" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" />
+    <title>@ViewBag.Title — FollowApp</title>
+    @Styles.Render("~/Content/index")
+    @Scripts.Render("~/bundles/modernizr")
 
+</head>
+<body>
+    <div class="container ">
+        <div class="login-header check-header">
+            <h2>twoje <span>zlecenie</span></h2>
+     
+        </div>
 
-<div>
-    <h4>Szczegóły</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.Name)
-        </dt>
+        <div class="desc-wrap">
+            <h2>@Model.Service.Name</h2>
+            <p>@Model.Service.Describe</p>
+            <table class="table">
+                <tr>
+                    <th>
+                        Data Aktualizacji
+                    </th>
+                    <th>
+                        Status Zlecenia
+                    </th>
 
-        <dd>
-            @Html.DisplayFor(model => model.Name)
-        </dd>
+                </tr>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Describe)
-        </dt>
+                @foreach (var item in Model.StatusHistoryList)
+            {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.ChangeDate)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Status.Name)
+                        </td>
+                    </tr>
+                }
 
-        <dd>
-            @Html.DisplayFor(model => model.Describe)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.StatusId)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Status.Name)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.AddDate)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.AddDate)
-        </dd>
-
-    </dl>
-</div>
-<p>
-    @Html.ActionLink("Back to List", "Index")
-</p>
+            </table>
+            <div class="col btn-wrap">
+                <a class="btn btn-default" href="@Url.Action("Index","Home")">powrót</a>
+            </div>
+        </div>
+        
+    </div>
+    @section Scripts {
+        @Scripts.Render("~/bundles/jqueryval")
+    }
+</body>
+</html>

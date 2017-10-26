@@ -2,62 +2,73 @@
 @model LoginViewModel
 @{
     ViewBag.Title = "Zaloguj";
+    Layout = null;
 }
+<!DOCTYPE html>
+<html lang="pl">
 
-<h2>@ViewBag.Title.</h2>
-<div class="row">
-    <div class="col-md-12">
-        <section id="loginForm">
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="" />
+    <meta name="author" content="AX Team" />
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css" />
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.css" />
+    <link rel="stylesheet" type="text/css" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" />
+    <title>@ViewBag.Title — Follow
+    App</title>
+    @Styles.Render("~/Content/login")
+    @Scripts.Render("~/bundles/modernizr")
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/wow/1.1.2/wow.min.js"></script>
+    <script>
+        new WOW().init();
+    </script>
+</head>
+<body class="wow animated fadeIn">
+    <div class="container ">
+        <div class="login-header">
+            <h2>logowanie do aplikacji&nbsp;</h2>
+            <h3>fol<span>low.</span></h3>
+        </div>
+        <div class=" login-form ">
             @using (Html.BeginForm("Login", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
             {
                 @Html.AntiForgeryToken()
-                <h4>Zaloguj się za pomocą konta lokalnego.</h4>
-                <hr />
                 @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-                <div class="form-group">
-                    @Html.LabelFor(m => m.Email, new { @class = "col-md-2 control-label" })
-                    <div class="col-md-10">
-                        @Html.TextBoxFor(m => m.Email, new { @class = "form-control" })
-                        @Html.ValidationMessageFor(m => m.Email, "", new { @class = "text-danger" })
+                <div class="row ">
+                    <div class="col-md-1">
+                        <span><i class="fa fa-envelope-o "></i></span>
                     </div>
-                </div>
-                <div class="form-group">
-                    @Html.LabelFor(m => m.Password, new { @class = "col-md-2 control-label" })
-                    <div class="col-md-10">
-                        @Html.PasswordFor(m => m.Password, new { @class = "form-control" })
-                        @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })
-                    </div>
-                </div>
-                <div class="form-group">
-                    <div class="col-md-offset-2 col-md-10">
-                        <div class="checkbox">
-                            @Html.CheckBoxFor(m => m.RememberMe)
-                            @Html.LabelFor(m => m.RememberMe)
+                    <div class="col-md-11 ">
+                        <div class="form-group ">
+                            @Html.TextBoxFor(m => m.Email, new { @class = "form-control", @placeholder = "adres e-mail" })
+                            @Html.ValidationMessageFor(m => m.Email, "", new { @class = "text-danger" })
                         </div>
                     </div>
                 </div>
-                <div class="form-group">
-                    <div class="col-md-offset-2 col-md-10">
-                        <input type="submit" value="Zaloguj" class="btn btn-default" />
+                <div class="row ">
+                    <div class="col-md-1 ">
+                        <span><i class="fa fa-unlock-alt "></i></span>
+                    </div>
+                    <div class="col-md-11 ">
+                        <div class="form-group ">
+                            @Html.PasswordFor(m => m.Password, new { @class = "form-control", @placeholder = "hasło" })
+                            @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })
+                            <small class="form-text text-muted "><a>Zapomniałeś hasła?</a></small>
+                        </div>
                     </div>
                 </div>
-                @*<p>
-                    @Html.ActionLink("Zarejestruj się jako nowy użytkownik", "Register")
-                </p>*@
-                @* Włącz to ustawienie po włączeniu potwierdzenia konta dla funkcji resetowania hasła
-                    <p>
-                        @Html.ActionLink("Nie pamiętasz hasła?", "ForgotPassword")
-                    </p>*@
-            }
-        </section>
-    </div>
-    @*<div class="col-md-4">
-        <section id="socialLoginForm">
-            @Html.Partial("_ExternalLoginsListPartial", new ExternalLoginListViewModel { ReturnUrl = ViewBag.ReturnUrl })
-        </section>
-    </div>*@
-</div>
 
-@section Scripts {
-    @Scripts.Render("~/bundles/jqueryval")
-}
+
+                <button type="submit" class="btn btn-primary ">Zaloguj</button>
+
+            }
+
+            </div>
+        </div>
+            @section Scripts {
+                @Scripts.Render("~/bundles/jqueryval")
+            }
+            </body>
+</html>
